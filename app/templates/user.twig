@@ -1,0 +1,77 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel z-depth-1">
+			<div class="panel-header">
+				<div class="panel-title">
+					<h6>Users</h6>
+				</div>
+			</div>
+			<div class="panel-content">
+				<div class="row">
+					<div class="col-sm-12 col-md-4" style="margin: 10px 0 25px;">
+						<button id="add-btn" class="btn btn-default">Add</button>
+						<button id="delete" class="btn btn-default">Delete</button>
+					</div>
+				</div>
+				<div class="row">   
+					<div class="col-md-12">
+						<div class="table-responsive">
+							<table id="dataTable" class="table table-hover table-striped table-bordered">
+								<thead>
+									<tr>
+										<th class="table-checkbox">
+											<div class="checkbox">
+												<label>
+													<input type="checkbox" id="checkAll">
+												</label>
+											</div>
+										</th>
+										<th>Name</th>
+										<th>Surname</th>
+										<th>ID Number</th>
+										<th>Mobile Number</th>
+										<th>Language</th>
+										<th>Interests</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for user in users %}
+									<tr>
+										<td class="table-checkbox">
+											<div class="checkbox">
+												<label>
+													<input type="checkbox" class="checkRow checked" value="{{user.id}}">
+												</label>
+											</div>
+										</td>
+										<td>{{ user.name }}</td>
+										<td>{{ user.surname }}</td>
+										<td>{{ user.id_number }}</td>
+										<td>{{ user.mobile_no }}</td>
+										<td>{{ user.languages.language }}</td>
+										<td>
+										{% for item in user.interests %} {{item.interest}}, {% endfor %}
+										</td>
+										<td class="action-btn">
+											<a href="edit/{{user.id}}" title="Remover">
+												<i class="material-icons">edit</i>
+											</a>
+										</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

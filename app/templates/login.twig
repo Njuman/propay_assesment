@@ -1,0 +1,42 @@
+{% set version = '1.6' %}
+
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ base_url() }}/css/style.css?v={{version}}">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ base_url() }}/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ base_url() }}/css/normalize.min.css">
+</head>
+
+<body>
+    <section id="content">
+        <div class="login-screen">
+
+            <div class="wrapper">
+                <form class="login">
+                    <p class="title">Log in</p>
+                    <input type="text" id='username-btn' name="csrf_username" placeholder="Username" autofocus/>
+                    <i class="fa fa-user"></i>
+                    <input id='pass-btn' type="password" name="csrf_password" placeholder="Password" />
+                    <i class="fa fa-key"></i>
+                    <a href="#">Forgot your password?</a>
+                    <button>
+                        <i class="spinner"></i>
+                        <span class="state">Log in</span>
+                    </button>
+                </form>
+
+                <footer>Cyril Nxumalo</footer>   
+            </div>
+
+        </div>
+    </section>
+
+    <script src='{{ base_url() }}/js/jquery.min.js'></script>
+    <script src="{{ base_url() }}/js/login.js?v={{version}}"></script>
+</body>
+</html>

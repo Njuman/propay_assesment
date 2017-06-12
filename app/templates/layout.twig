@@ -1,0 +1,25 @@
+{% set version = '1.7' %}
+
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ base_url() }}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ base_url() }}/css/theme.css?v={{version}}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:500,300,700,400' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+
+    <div class="body-content">
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+    <script src="{{ base_url() }}/js/jquery.min.js?v={{version}}"></script>
+    <script src="{{ base_url() }}/js/bootstrap.min.js?v={{version}}"></script>
+    <script src="{{ base_url() }}/js/index.js?v={{version}}"></script>
+</body>
+</html>
