@@ -18,17 +18,17 @@
 							<div class="form-group {% if errors.first(item.name) %}has-error{% endif %}">
 								<label for="{{item.label}}" class="control-label">{{item.label}}</label>
 								<div class="">
-									<input type="text" name="{{item.name}}" class="form-control boxed-input" id="inputSelecionarCliente" {% if request.post(item.name) %}value="{{ request.post(item.name) }}"{% endif %}>
+									<input type="text" name="{{item.name}}" class="form-control boxed-input" id="inputSelecionarCliente" {% if attribute(request, item.name) %}value="{{ attribute(request, item.name) }}"{% endif %}>
 									{% if errors.first(item.name) %}{{ errors.first(item.name)}}{% endif %}
 								</div>
 							</div>
 						</div>
 						{% endfor %}
 						<div class="col-sm-12 col-md-6">
-							<div class="form-group">
+							<div class="form-group {% if errors.first(item.name) %}has-error{% endif %}">
 								<label for="inputData" class="control-label">Birth Date</label>
 								<div class="" style="display: flex;">
-									<input type="text" name="birth_date" class="form-control boxed-input" id="inputData" value="{{birth_date}}"><i class="material-icons datepicker-icon" title="Selecionar data">event</i>
+									<input type="text" name="birth_date" class="form-control boxed-input" id="inputData" {% if request.birth_date %}value="{{ request.birth_date }}"{% endif %}><i class="material-icons datepicker-icon" title="Selecionar data">event</i>
 								</div>
 							</div>
 						</div>
@@ -45,15 +45,15 @@
 							</div>
 						</div>
 						<div class="col-sm-12 col-md-6">
-							<div class="form-group">
+							<div class="form-group {% if errors.first(username) %}has-error{% endif %}">
 								<label for="inputStatus" class="control-label">Username</label>
 								<div class="">
-									<input type="text" name="username" class="form-control boxed-input" id="inputSelecionarCliente">
+									<input type="text" name="username" class="form-control boxed-input" id="inputSelecionarCliente" {% if request.username %}value="{{ request.username }}"{% endif %}>
 								</div>
 							</div>
 						</div>
 						<div class="col-sm-12 col-md-6">
-							<div class="form-group">
+							<div class="form-group {% if errors.first(password) %}has-error{% endif %}">
 								<label for="inputStatus" class="control-label">Password</label>
 								<div class="">
 									<input type="password" name="password" class="form-control boxed-input" id="inputSelecionarCliente">

@@ -33,57 +33,59 @@ class AuthEndpoint extends Endpoint {
     private $auth;
 
     public function __construct(Twig $view, Messages $flash, Hash $hash, $auth) {
-      $this->view = $view;
-      $this->hash = $hash;
-      $this->session  = new Session();
-      $this->auth = $auth;
-  }
-
-  public function index(Request $request, Response $response) {
-      $this->view->render($response, 'login.twig',
-         ['csrf' => [
-         'name' => $request->getAttribute('csrf_name'),
-         'value' => $request->getAttribute('csrf_value'),
-         ],
-         ]);
-
-      return $response;
-  }
-
-  public function loginAction(Request $request, Response $response) {
-    $payload = $request->getParsedBody();
-
-    $identifier = $payload['identifier'];
-    $password = $payload['password'];
-
-    $validation = new Validator(new \App\Model\Users);
-
-    $validation->validate([
-        'identifier'    => [$identifier, 'required'],
-        'password'      => [$password, 'required']
-        ]);;
-
-    if($validation->passes()){
-        $user = \App\Model\Users::where('username', $identifier)->first();
-        if($user && $this->hash->passwordCheck($password, $user->password)){ 
-            $this->session->set($this->auth['session'],$user->id);
-            $results = $this->render($response, ['success' => true], 200);
-        }else{
-            $flash = 'Sorry, you couldn\'t be logged in.';            
-            $results = $this->render($response, ['success' => false,'errors' => $validation->errors(),'flash' => $flash,'request' => $request], 200);
-        }
-    } else {
-        $results = $this->render($response, [
-            'success' => false,
-            'errors' => $validation->errors(),
-            'request' => $request,
-            ], 200);
+        $this->view = $view;
+        $this->hash = $hash;
+        $this->session  = new Session();
+        $this->auth = $auth;
     }
 
-    return $results;
-}
+    public function index(Request $request, Response $response) {
+        $this->view->render($response, 'login.twig', [
+            'csrf' => [
+                'name' => $request->getAttribute('csrf_name'),
+                'value' => $request->getAttribute('csrf_value'),
+            ],
+        ]);
 
-public function logout(Request $request, Response $response) {
+        return $response;
+    }
 
-}
+    public function loginAction(Request $request, Response $response) {
+        $payload = $request->getParsedBody();
+
+        $identifier = $payload['identifier'];
+        $password = $payload['password'];
+
+        $validation = new Validator(new \App\Model\Users);
+
+        $validation->validate([
+            'identifier'    => [$identifier, 'required'],
+            'password'      => [$password, 'required']
+            ]);;
+
+        if($validation->passes()){
+            $user = \App\Model\Users::where('username', $identifier)->first();
+            if($user && $this->hash->passwordCheck($password, $user->password)){ 
+                $this->session->set($this->auth['session'],$user->id);
+                $results = $this->render($response, ['success' => true], 200);
+            }else{
+                $flash = 'Sorry, you couldn\'t be logged in.';            
+                $results = $this->render($response, ['success' => false,'errors' => $validation->errors(),'flash' => $flash,'request' => $request], 200);
+            }
+        } else {
+            $results = $this->render($response, [
+                'success' => false,
+                'errors' => $validation->errors(),
+                'request' => $request,
+                ], 200);
+        }
+
+        return $results;
+    }
+
+    public function logoutAction(Request $request, Response $response) {
+        $session = new \App\Helper\Session;
+        $session::destroy();
+        return $response->withRedirect('loginAction');
+    }
 }

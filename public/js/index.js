@@ -74,6 +74,10 @@ $("#add-btn").click(function(e) {
     window.location = '/add';
 });
 
+$('#logout').click(function() {
+    window.location = '/logout';
+});
+
 
 
 

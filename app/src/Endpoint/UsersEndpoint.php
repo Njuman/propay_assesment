@@ -171,7 +171,6 @@ class UsersEndpoint extends Endpoint {
             'surname'  => [$payload['surname'], 'required'],
             'username' => [$payload['username'], 'required|uniqueUsername'],
             'id_number'=> [$payload['id_number'], 'required'],
-            'mobile_no'  => [$payload['mobile_no'], 'required'],
             'birth_date'  => [$payload['birth_date'], 'required'],
             'password' => [$payload['password'], 'required|min(6)']
         ]);
@@ -198,7 +197,7 @@ class UsersEndpoint extends Endpoint {
                 'input_var' => $this->users_model->inputs(),
                 'lang_var'  => $this->language_model->get_language(),
                 'interest_var' => $this->get_interest_var(),
-                'request' => $request
+                'request' => $payload
             ]);
         }
 
