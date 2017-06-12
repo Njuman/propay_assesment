@@ -2,5 +2,5 @@
 
 default login details:
 
-username: njuman
+username: njuman__
 password: boosermczn1
